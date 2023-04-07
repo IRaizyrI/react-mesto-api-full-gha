@@ -4,6 +4,9 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const http2 = require('node:http2');
+const winston = require('winston');
+const expressWinston = require('express-winston');
+
 const { login, createUser } = require('./controllers/users');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
@@ -13,6 +16,18 @@ const NotFoundError = require('./errors/not-found-err');
 const {
   HTTP_STATUS_INTERNAL_SERVER_ERROR,
 } = http2.constants;
+
+const requestLogTransport = new winston.transports.File({
+  filename: 'logs/request.log',
+  level: 'info',
+  format: winston.format.json(),
+});
+
+const errorLogTransport = new winston.transports.File({
+  filename: 'logs/error.log',
+  level: 'error',
+  format: winston.format.json(),
+});
 
 const app = express();
 app.use(helmet());
@@ -30,6 +45,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
+app.use(
+  expressWinston.logger({
+    transports: [requestLogTransport],
+    format: winston.format.combine(winston.format.json()),
+  }),
+);
+
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
@@ -64,6 +86,12 @@ app.use('/cards', auth, cardRoutes);
 app.use('', (req, res, next) => {
   next(new NotFoundError('Not found'));
 });
+app.use(
+  expressWinston.errorLogger({
+    transports: [errorLogTransport],
+    format: winston.format.combine(winston.format.json()),
+  }),
+);
 app.use(errors());
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || HTTP_STATUS_INTERNAL_SERVER_ERROR;
