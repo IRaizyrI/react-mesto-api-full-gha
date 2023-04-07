@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const http2 = require('node:http2');
@@ -31,7 +32,7 @@ const errorLogTransport = new winston.transports.File({
 
 const app = express();
 app.use(helmet());
-
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
