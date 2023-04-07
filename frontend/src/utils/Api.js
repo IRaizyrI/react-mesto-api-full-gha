@@ -9,13 +9,13 @@ export class Api{
     return Promise.reject(`Бип-Буп-Бип! Что-то пошло не так. Статус: ${res.status}`)
   }
   getInitialCards() {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards`, {headers: this._headers}).then(this._checkResponse);
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/cards`, {headers: this._headers}).then(this._checkResponse);
   }
   getProfileInfo() {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/users/me`, {headers: this._headers}).then(this._checkResponse);
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/users/me`, {headers: this._headers}).then(this._checkResponse);
   }
   patchProfileInfo(name, about){
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/users/me`, {
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -25,7 +25,7 @@ export class Api{
   }).then(this._checkResponse);
   }
   patchUserAvatar(avatar) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/users/me/avatar`, {
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/users/me/avatar`, {
         method: "PATCH",
         headers: this._headers,
         body: JSON.stringify({
@@ -34,7 +34,7 @@ export class Api{
     }).then(this._checkResponse);
 }
   postCard(name, link){
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards`, {
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(
@@ -46,21 +46,21 @@ export class Api{
   }).then(this._checkResponse);
 }
   deleteCard(id) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards/${id}`, {
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/cards/${id}`, {
         method: "DELETE",
         headers: this._headers,
     })
         .then(this._checkResponse);
   }
   putLike(id) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards/${id}/likes`, {
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/cards/${id}/likes`, {
         method: "PUT",
         headers: this._headers,
     })
         .then(this._checkResponse);
 }
   deleteLike(id) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards/${id}/likes`, {
+    return fetch(`https://api.logvinovilya.students.nomoredomains.monster/cards/${id}/likes`, {
         method: "DELETE",
         headers: this._headers,
     })

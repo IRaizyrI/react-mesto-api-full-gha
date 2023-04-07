@@ -1,6 +1,6 @@
 class Auth {
   constructor() {
-    this._baseURL = 'https://auth.nomoreparties.co'
+    this._baseURL = 'https://api.logvinovilya.students.nomoredomains.monster'
     this._headers = {'Content-Type': 'application/json'}
   }
   _checkResponse(res){
