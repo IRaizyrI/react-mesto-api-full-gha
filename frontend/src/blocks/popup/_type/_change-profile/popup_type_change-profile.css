@@ -1,0 +1,17 @@
+.popup_type_change-profile {
+  grid-template-columns: 1fr min-content 1fr;
+  grid-template-rows: 1fr min-content min-content 1fr;
+  grid-template-areas: ". . ."
+             ". . popup__close"
+             ". popup__container ."
+             ". . .";
+}
+
+@media screen and (max-width: 425px) {
+  .popup_type_change-profile {
+    grid-template-areas:". . ."
+              ". popup__close ."
+              ". popup__container ."
+              ". . .";
+  }
+}

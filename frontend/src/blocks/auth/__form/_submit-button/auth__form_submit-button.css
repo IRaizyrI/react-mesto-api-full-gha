@@ -1,0 +1,24 @@
+.auth__form_submit-button {
+  margin-top: 50px;
+  height: 50px;
+  margin-top: 216px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  padding: 0;
+  border-radius: 2px;
+}
+.auth__form_submit-button:hover{
+  opacity: .85;
+}
+@media screen and (max-width: 320px){
+  .auth__form_submit-button{
+      font-size: 16px;
+      height: 46px;
+      margin-top: 174px;
+
+  }
+}

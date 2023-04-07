@@ -1,0 +1,18 @@
+.popup_type_inspect-image {
+  grid-template-columns: 1fr min-content 1fr;
+  grid-template-rows: 1fr min-content min-content 1fr;
+  grid-template-areas: ". . ."
+             ". . popup__close"
+             ". popup__image ."
+             ". popup__image-description .";
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+@media screen and (max-width: 425px) {
+  .popup_type_inspect-image {
+    grid-template-areas:  ". . ."
+              ". popup__close ."
+              ". popup__image ."
+              ". popup__image-description .";
+  }
+}

@@ -1,0 +1,12 @@
+.popup__submit_disabled{
+  opacity: 0.2;
+  background: #FFFFFF;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 2px;
+}
+.popup__submit_disabled:hover { /* Мертвая кнопка не должна реагировать на ховер */
+  opacity: 0.2;
+  cursor: default;
+}
+
