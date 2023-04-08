@@ -50,7 +50,6 @@ function handleAuth(data, operationType) {
   authFn
     .then((res) => {
       if (operationType === 'login') {
-        localStorage.setItem('token', res.token);
         setLoggedIn(true);
         history.push('/');
       } else if (operationType === 'register') {
@@ -66,23 +65,22 @@ function handleAuth(data, operationType) {
     });
 }
 React.useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    auth.checkToken(token)
+  // Добавляет ошибки в консоль при отсутствии логина
+    auth.checkToken()
       .then((res) => {
         history.push('/')
-        setEmail(res.data.email);
+        setEmail(res.email);
         setLoggedIn(true);
       })
       .catch((err) => console.log(err))
-  }
 }, [loggedIn, history, email])
 
 function signOut() {
-  localStorage.removeItem('token')
-  setLoggedIn(false)
-  setEmail('')
-  history.push('/sign-in')
+  api.signOut().then((res) => {
+    setLoggedIn(false)
+    setEmail('')
+    history.push('/sign-in')
+})
 }
 
   const handleIsEditAvatarPopupOpen = () => {

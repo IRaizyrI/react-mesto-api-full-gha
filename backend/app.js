@@ -7,7 +7,8 @@ const { errors, celebrate, Joi } = require('celebrate');
 const http2 = require('node:http2');
 const winston = require('winston');
 const expressWinston = require('express-winston');
-
+const corsOptions = require('./middlewares/cors');
+const logoutRoutes = require('./routes/logout');
 const { login, createUser } = require('./controllers/users');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
@@ -31,8 +32,9 @@ const errorLogTransport = new winston.transports.File({
 });
 
 const app = express();
+
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -82,6 +84,7 @@ app.post(
   }),
   createUser,
 );
+app.use('/logout', auth, logoutRoutes);
 app.use('/users', auth, userRoutes);
 app.use('/cards', auth, cardRoutes);
 app.use('', (req, res, next) => {

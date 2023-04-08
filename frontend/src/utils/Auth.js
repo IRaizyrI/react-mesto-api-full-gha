@@ -1,7 +1,11 @@
 class Auth {
   constructor() {
     this._baseURL = 'https://api.logvinovilya.students.nomoredomains.monster'
-    this._headers = {'Content-Type': 'application/json'}
+    this._headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+
+    }
   }
   _checkResponse(res){
     if(res.ok){
@@ -14,6 +18,19 @@ class Auth {
     return fetch(`${this._baseURL}/signin`, {
       method: 'POST',
       headers: this._headers,
+      credentials: 'include',
+      body: JSON.stringify({
+        password: data.password,
+        email: data.email,
+      }),
+    })
+      .then(this._checkResponse)
+  }
+  registration(data) {
+    return fetch(`${this._baseURL}/signup`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: this._headers,
       body: JSON.stringify({
         password: data.password,
         email: data.email,
@@ -21,23 +38,12 @@ class Auth {
     })
     .then(this._checkResponse)
   }
-  registration(data) {
-    return fetch(`${this._baseURL}/signup`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        password: data.password,
-        email: data.email,
-      })
-    })
-    .then(this._checkResponse)
-  }
 
-  checkToken(token) {
+  checkToken() {
     return fetch(`${this._baseURL}/users/me`, {
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
       },
     })
     .then(this._checkResponse)
